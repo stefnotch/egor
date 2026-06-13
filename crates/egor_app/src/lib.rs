@@ -64,8 +64,10 @@ pub trait AppHandler<R> {
     fn resumed(&mut self, _window: Arc<Window>, _resource: &mut R) {}
     /// Called when app is suspended (happens for Android in background)
     fn suspended(&mut self) {}
-    /// Called for every WindowEvent before default input handling
-    fn on_window_event(&mut self, _window: &Window, _event: &WindowEvent) {}
+    /// Called for every WindowEvent before default input handling. Returns true if the event was consumed.
+    fn on_window_event(&mut self, _window: &Window, _event: &WindowEvent) -> bool {
+        false
+    }
     /// Called once the window exists; should create & return the resource
     async fn with_resource(&mut self, _window: Arc<Window>) -> R;
     /// Called after the resource is initialized & window is ready
@@ -162,7 +164,10 @@ impl<R, H: AppHandler<R> + 'static> ApplicationHandler<(R, H)> for AppRunner<R, 
 
     fn window_event(&mut self, event_loop: &ActiveEventLoop, _: WindowId, event: WindowEvent) {
         if let Some(handler) = &mut self.handler {
-            handler.on_window_event(self.window.as_ref().unwrap(), &event);
+            let consumed = handler.on_window_event(self.window.as_ref().unwrap(), &event);
+            if consumed {
+                return;
+            }
         }
 
         match event {

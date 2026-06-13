@@ -220,13 +220,16 @@ impl App {
 }
 
 impl AppHandler<Renderer> for App {
-    fn on_window_event(&mut self, _window: &Window, event: &WindowEvent) {
+    fn on_window_event(&mut self, _window: &Window, event: &WindowEvent) -> bool {
         #[cfg(feature = "ui")]
         if let Some(egui) = self.egui.as_mut() {
-            egui.handle_event(_window, event);
+            if egui.handle_event(_window, event) {
+                return true;
+            }
         }
 
         self.events.push(event.clone());
+        false
     }
 
     async fn with_resource(&mut self, window: Arc<Window>) -> Renderer {
