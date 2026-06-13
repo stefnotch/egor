@@ -12,7 +12,7 @@ exclude = ["media/"]
 
 [workspace]
 members = ["xtask", "crates/*", "demos/*"]
-resolver = "2"
+resolver = "3"
 
 [features]
 default = []
