@@ -57,6 +57,7 @@ pub mod app {
     #[cfg(target_os = "android")]
     pub use egor_app::{ANDROID_APP, AndroidApp};
     pub use egor_glue::app::{App, FrameContext};
+    pub use egor_glue::hot_state::HotState;
     #[cfg(feature = "ui")]
     pub use egor_glue::ui::egui;
 }
