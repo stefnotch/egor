@@ -2,45 +2,44 @@
 name = "egor"
 version = "0.10.0"
 edition = "2024"
-authors = ["wick3dr0se <wick3dr0se@protonmail.com>"]
 description = "A dead simple 2D graphics engine"
-license = "MIT"
 repository = "https://github.com/wick3dr0se/egor"
+license = "MIT"
 keywords = ["2d", "graphics", "wgpu", "winit"]
-categories = ["graphics", "game-development"]
+categories = ["game-development", "graphics"]
 exclude = ["media/"]
 
 [workspace]
-members = ["xtask", "crates/*", "demos/*"]
 resolver = "3"
+members = ["crates/*", "demos/*", "xtask"]
+
+[dependencies]
+egor_app = { path = "crates/egor_app", version = "0.10.0" }
+egor_glue = { path = "crates/egor_glue", version = "0.10.0" }
+egor_render = { path = "crates/egor_render", version = "0.10.0" }
 
 [features]
 default = []
 log = ["egor_app/log"]
 
-webgl = ["egor_render/webgl"]
 angle = ["egor_render/angle"]
 gles = ["egor_render/gles"]
 vulkan = ["egor_render/vulkan"]
+webgl = ["egor_render/webgl"]
 
 hot_reload = ["egor_glue/hot_reload"]
 ui = ["egor_glue/ui"]
 
-[dependencies]
-egor_app = { version = "0.10.0", path = "crates/egor_app" }
-egor_glue = { version = "0.10.0", path = "crates/egor_glue" }
-egor_render = { version = "0.10.0", path = "crates/egor_render" }
-
 [profile.release]
 strip = true
 lto = true
-codegen-units = 1
 panic = "abort"
+codegen-units = 1
 
 [profile.profiling]
 inherits = "release"
-lto = false
-strip = false
 debug = true
-codegen-units = 16
+strip = false
+lto = false
 panic = "unwind"
+codegen-units = 16

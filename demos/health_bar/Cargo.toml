@@ -5,5 +5,5 @@ edition = "2024"
 publish = false
 
 [dependencies]
-egor = { path = "../../" }
 bytemuck = { version = "1.23.0", features = ["derive"] }
+egor = { path = "../../" }

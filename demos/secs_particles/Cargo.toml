@@ -15,6 +15,6 @@ path = "src/main.rs"
 
 [dependencies]
 egor = { path = "../../" }
-rand = "0.8"
 getrandom = { version = "0.2", features = ["js"] }
+rand = "0.8"
 secs = { git = "https://github.com/wick3dr0se/secs" }
