@@ -47,6 +47,10 @@ impl<'a> AppControl<'a> {
     pub fn set_vsync(&mut self, on: bool) {
         self.requested_vsync = Some(on);
     }
+
+    pub fn window(&self) -> &Window {
+        self.window
+    }
 }
 
 pub struct FrameContext<'a> {
